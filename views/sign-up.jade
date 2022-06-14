@@ -1,0 +1,40 @@
+
+extends layout
+
+block content
+  h1 Sign Up
+  form(action='' method='POST')
+    label(for='email') Email:
+    input(name='email' placeholder='example@email.com' type='text')
+    br
+    label(for='password') Password:
+    input(name='password' type='password')
+    br
+    p 
+      u Name:
+    label(for='firstName') First: 
+    input(name='firstName' type='text')
+    label(for='lastName') Last:    
+    input(name='lastName' type='text')
+    br
+    label(for='dob') Date of Birth: 
+    input(name='dob' type='date')
+    label(for='sex') Sex: 
+    select(name='sex')
+      option(value="male") Male
+      option(value="female") Female
+    br
+    p Height:
+    label(for='heightFeet') Feet:  
+    input(name='heightFeet' type='text')
+    label(for='heightInches') Inches:  
+    input(name='heightInches' type='text')
+    label(for='weight') Weight: 
+    input(name='weight' type='text')
+    br
+    input(type='submit' value='Sign Up')
+    
+    if errors
+      ul
+        for error in errors
+          li!= error.msg
