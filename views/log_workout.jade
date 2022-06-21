@@ -1,0 +1,97 @@
+extends layout
+
+block content
+  
+  body
+    h1 #{user.first_name}
+
+    form(action="" method='POST')
+
+      // label and input for: date, type, duration, exercises (exercise_name, weight, rpe), and a large input for notes
+      label(for='date_input') Date:
+      input(type='date', id="date_input", name="dateInput")
+      br
+      label(for='workout_type_input') Workout Type:
+      input(type='text', id="workout_type_input", name="workoutTypeInput")
+      br
+      label(for='duration_input') Duration (Minutes):
+      input(type='number', id="duration_input", name="durationInput")
+      br
+      br
+
+      h4
+        label(for='date') Exercises:
+        br
+      // needs a button to add additional exercise sets (replicating the exercise_name, weight, and rpe fields)
+
+      table
+        tr
+          th
+            label Exercise:
+          th
+            label Weight (lbs):
+          th
+            label Reps:
+          th
+            label RPE:
+
+        tr
+          td
+            input(type='text', id='exercise_name1', class='exercise_name' name='exerciseNameInput')
+          td
+            input(type='number', id='weight_input1', class='weight_input' name='weightInput')
+          td
+            input(type='number' id='reps_input1' class='reps_input' name='repsInput')
+          td
+            input(type='number', id='rpe_input1', class='rpe_input' name='rpeInput')
+          td
+            input(type='button', id='delete_button1', class='delete_btn btn btn-sm btn-danger', value='X')
+
+      dl
+        input(type='button', id='add_exercise_btn', name='addExerciseBtn', value='Add Exercise')
+        input(type='button', id='delete_exercise_btn', name='deleteExerciseBtn', value='Delete Exercise')
+      br
+
+      label(for='notes_input') Notes:
+      input(type='text', id='notes_input', name='notesInput')
+      br
+      input(type='submit', value='Submit Workout')
+  if errors
+    ul
+      for error in errors
+        li!= error.msg
+
+
+
+  script.
+    // count represents number of table rows
+    // starts at 2 since there is already 1
+    var count = 2
+    
+    $( "#add_exercise_btn" ).on("click", function() {
+      $( "table" ).append(
+        `<tr>
+          <td>
+            <input type='text' id='exercise_name${count}' class='exercise_name' name='exerciseNameInput'>
+          </td>
+          <td>
+            <input type='number' id='weight_input${count}' class='weight_input' name='weightInput'>
+          </td>
+          <td>
+            <input type='number' id='reps_input${count}' class='reps_input' name='repsInput'>
+          </td>
+          <td>
+            <input type='number' id='rpe_input${count}' class='rpe_input' name='rpeInput'>
+          </td>
+          <td>
+            <input type='button', id='delete_button${count}', class='delete_btn btn btn-sm btn-danger', value='X'>
+          </td>
+        </tr>`    
+      )
+      count += 1
+    })
+    
+    $( "tbody" ).on("click", '.delete_btn', function() {
+      thisrow = this.closest("tr");
+      thisrow.remove();
+    })

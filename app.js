@@ -38,13 +38,15 @@ passport.use(
     passwordField: 'password',
   },
     function(username, password, done) {
-    User.findOne({ username: username }, (err, user) => {
+    User.findOne({ email: username }, (err, user) => {
       if (err) {
         return done(err);
       }
+
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
+
       bcrypt.compare(password, user.password, (err, res) => {
         if (res) {
     // passwords match! log user in

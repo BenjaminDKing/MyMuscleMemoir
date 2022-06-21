@@ -18,7 +18,7 @@ var WorkoutSchema = new Schema({
       rpe: Number,
     }
   ],
-  notes: String
+  notes: {type: String, required: false, length: { max: 500 } }
 })
 
 WorkoutSchema

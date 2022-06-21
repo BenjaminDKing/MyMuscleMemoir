@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1 #{user.first_name} #{user.last_name}'s Profile
+  form()
+    div('flexbox')
+      ul
+        h4 
+          li #{user.full_name}
+        h4
+          li #{user.dob_formatted}
+        h4
+          li Muscle Memoir member since #{user.date_joined_formatted}
+
+    //- form(action='/profile', method='POST')
+    //-   div('flexbox')
+    //-     h2 #{user.full_name}'s Posts

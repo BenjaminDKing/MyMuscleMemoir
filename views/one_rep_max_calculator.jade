@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  h1 One Rep Max Calculator
+  h2 1RM = W * (36 / (37 - r))
+  form(action='', method='POST')
+    label(for='weight') Weight: 
+    input(name='weight', id='weight')
+    label(for='reps') Reps: 
+    input(name='reps', id='reps')
+    br
+    if user.personal_records.length > 0
+      label(for='lift') Select 1RM Lift:
+      br
+      select(name='lift') #{user.personal_records[0].exercise_name}
+        each lift in user.personal_records
+          option(name=lift.exercise_name) #{lift.exercise_name}
+    br
+    input(type='button' value='Calculate' id="calculate-button" name='calculateButton' class='btn btn-success')
+    br
+    input(type='text' name='calculation' id='calculation' readonly="readonly")
+    br
+    if user.personal_records.length > 0
+      input(type='submit' name='update1rm' class='btn btn-primary' value='Update 1RM')
+
+    if user.personal_records.length == 0
+      br
+      h3
+        strong 
+          i "You can't hit what you don't aim at."
+      h5 
+        a(href="/profile/edit") Start logging your best lifts today!
+      
+
+  script.
+    $(document).ready(function() {
+      console.log("Hello World")  
+    })
+    
+    $("#calculate-button").click(function() {
+      var weight = $("#weight").val()
+      var reps = $("#reps").val()
+      var one_rep_max = Math.floor(weight * (36 / (37 - reps)))
+      $("#calculation").val(one_rep_max)      
+    })

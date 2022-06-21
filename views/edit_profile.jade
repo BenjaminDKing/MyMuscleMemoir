@@ -1,0 +1,84 @@
+extends layout
+
+block content
+  h1 #{user.full_name}
+  form(action='', method='POST')
+    h2 Edit Your Profile 
+    label(for='sex') Sex:
+    select(name='sex', placeholder=user.sex, id='sex')
+      option male
+      option female
+    br
+    label(for='weight') Weight:
+    input(name='weight', placeholder=user.weight, id='weight')
+    br
+    h5 Height
+    label(for='heightFeet') Feet: 
+    input(name='heightFeet', placeholder=user.height_feet, id='heightFeet')
+    label(for='heightInches') Inches:
+    input(name='heightInches', placeholder=user.height_inches, id='heightInches')
+
+    if user.personal_records.length == 1
+      h4 Your Best Lifts
+      table
+        input(type='button', class='btn btn-success add_btn', value='Add PR Exercise', name='addLiftButton', id='add_lift_button')
+        tr
+          td
+            input(name='prInput', placeholder=user.personal_records[0].exercise_name)
+          td  
+            input(name='prWeightInput', placeholder=user.personal_records[0].weight)
+          td
+            input(type='button', class='btn btn-sm btn-danger delete_btn', value='-', name='removeLiftButton', id='remove_lift_button')
+
+    if user.personal_records.length > 1
+      h4 Your Best Lifts
+      table
+        input(type='button', class='btn btn-success add_btn', value='Add PR Exercise', name='addLiftButton', id='add_lift_button')
+        each lift in user.personal_records
+          tr
+            td
+              input(name='prInput', placeholder=lift.exercise_name)
+            td  
+              input(name='prWeightInput', placeholder=lift.weight)
+            td
+              input(type='button', class='btn btn-sm btn-danger delete_btn', value='-', name='removeLiftButton', id='remove_lift_button')
+          
+    else
+      h4 Add Your Best Lifts!
+      table
+        input(type='button', class='btn btn-success add_btn', value='Add PR Exercise', name='addLiftButton', id='add_lift_button')
+        tr
+          td
+            input(name='prInput', placeholder='FE: Bench Press')
+          td
+            input(name='weightInput', placeholder='225')
+          td
+            input(type='button', class='btn btn-sm btn-danger delete_btn', value='-', name='removeLiftButton', id='remove_lift_button')
+
+    input(type='submit')
+  if errors
+    for error in errors
+      li!= error.msg
+  
+  script.
+    $(".add_btn").on("click", function() {
+      $("tbody").append(
+        `<tr>
+          <td>
+            <input name='prInput'>
+          </td>
+          <td>
+            <input name='prWeightInput'>
+          </td>
+          <td>
+            <input type='button', class='btn btn-sm btn-danger delete_btn', value='-', name='removeLiftButton', id='remove_lift_button'>
+          </td>
+        </tr>`
+      )
+    })
+    $( 'tbody' ).on("click", '.delete_btn', function() {
+      thisrow = this.closest("tr")
+      thisrow.remove();
+    })
+    
+// Javascript Front End: Perhaps, change to one addExerciseBtn so it's preloaded with Javascript functionality

@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  form(action='/workouts/log_workout' method='GET')
+    h1 Your Workouts: 
+    input(type='submit' class='btn btn-primary' value='New Workout')  
+    dl
+      each workout in workouts
+        h3
+          a(href=workout.url) #{workout.type}
+        dt #{workout.date_formatted}
+        each exercise in workout.exercises
+          dd Exercise: #{exercise.exercise_name}
+          dd Weight: #{exercise.weight} lbs
+          dd RPE: #{exercise.rpe}

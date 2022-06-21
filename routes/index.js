@@ -26,6 +26,25 @@ router.get("/sign-up", (req, res) => res.render("sign-up"));
 
 router.post("/sign-up", user_controller.sign_up_post)
 
+// User's own profile
+router.get("/profile", user_controller.own_profile_get)
+
+router.post("/profile", user_controller.own_profile_post)
+
+router.get("/profile/edit", user_controller.profile_edit_get)
+
+router.post("/profile/edit", user_controller.profile_edit_post)
+
+// Accessing any user profile
+router.get("/profile/:id", user_controller.user_profile_get)
+
+router.post("/profile/:id", user_controller.user_profile_post)
+// -------------------------- //
+
+router.get("/one_rep_max_calculator", user_controller.one_rep_max_get)
+
+router.post("/one_rep_max_calculator", user_controller.one_rep_max_post)
+
 router.get("/log-out", (req, res) => {
   req.logout(function (err) {
     if (err) {
@@ -35,5 +54,16 @@ router.get("/log-out", (req, res) => {
   });
 });
 
+router.get("/access_denied", (req, res) => res.render("access_denied"))
+
+// WORKOUT ROUTES
+
+router.get("/workouts", workout_controller.list_workouts_get)
+
+router.get("/workouts/log_workout", workout_controller.log_workout_get)
+
+router.post("/workouts/log_workout", workout_controller.log_workout_post)
+
+router.get("/workouts/:id", workout_controller.workout_details_get)
 
 module.exports = router;

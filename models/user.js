@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var {DateTime} = require('luxon')
 
 const UserSchema = new Schema(
   {
@@ -37,6 +38,18 @@ UserSchema
 //     }
 //     return height_formatted
 // })
+
+UserSchema
+.virtual('dob_formatted')
+.get(function() {
+  return DateTime.fromJSDate(this.date_of_birth).toLocaleString();
+})
+
+UserSchema
+.virtual('date_joined_formatted')
+.get(function() {
+  return DateTime.fromJSDate(this.date_joined).toLocaleString();
+})
 
 UserSchema
 .virtual('age')

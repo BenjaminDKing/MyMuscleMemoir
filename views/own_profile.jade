@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1 #{user.first_name} #{user.last_name}'s Profile
+  form(action='/profile/edit' method='GET')
+    div('flexbox')
+      ul
+        h4 
+          li #{user.full_name}
+        h4
+          li #{user.dob_formatted}
+        h4
+          li Muscle Memoir member since #{user.date_joined_formatted}
+    input(type='submit', value='Edit Profile', class='btn btn-primary btn-sm')
+
+    form(action='/profile', method='POST')
+      div('flexbox')
+        h2 #{user.full_name}'s Posts

@@ -1,7 +1,9 @@
 doctype html
 html(lang="en")
+extends layout
+block content
   if user
-    h1 Welcome back, #{user.username} !
+    h1 Welcome back, #{user.first_name} !
     a(href='/log-out') LOG OUT
   
   else
@@ -92,7 +94,7 @@ html(lang="en")
           webkit-overflow-scrolling: touch;
         }
         
-    body(class="text-center")
+    body
     div(class='flexbox')
       main(class="form-signin w-100 m-auto")
         div(class='flexbox')

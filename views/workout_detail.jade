@@ -1,0 +1,58 @@
+extends layout
+
+block content
+  h1 #{user.first}
+    u #{workout.date_formatted} -- #{workout.type}
+    
+    if workout.exercises.length > 1
+      table(class="table")
+        tbody
+          tr
+            td 
+              h5 Exercise:
+            td 
+              h5 Weight (lbs):
+            td 
+              h5 Reps
+            td
+              h5 RPE:
+              
+        each exercise in workout.exercises
+          tr
+            td 
+              h5 #{exercise.exercise_name}
+            td 
+              h5 #{exercise.weight}
+            td 
+              h5 #{exercise.reps}
+            td 
+              h5 #{exercise.rpe}      
+
+    else
+      table(class="table")
+        tbody
+          tr
+            td 
+              h5 Exercise:
+            td 
+              h5 Weight (lbs):
+            td 
+              h5 Reps
+            td
+              h5 RPE:
+              
+          tr
+            td 
+              h5 #{workout.exercises[0].exercise_name}
+            td 
+              h5 #{workout.exercises[0].weight}
+            td 
+              h5 #{workout.exercises[0].reps}
+            td 
+              h5 #{workout.exercises[0].rpe}
+    
+  hr
+  //- p
+  //- input(type="button", class='btn btn-danger', ) 
+  //-   a(href=workout.url+'/delete') Delete Workout
+  a(href=workout.url + '/delete' class="btn btn-danger") Delete
